@@ -20,5 +20,16 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    security.authentication_utils:
+        class: Symfony\Component\Security\Http\Authentication\AuthenticationUtils
+        arguments:
+            - '@request_stack'
+            - '@security.token_storage'
+
+    App\Controller\SecurityController:
+        arguments:
+            $authenticationUtils: '@security.authentication_utils'
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
