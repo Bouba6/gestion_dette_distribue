@@ -33,6 +33,18 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->getEntityManager()->flush();
     }
 
+    public  function findByLoginPassword(string $login, string $password): ?Users
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.login = :login')
+            ->andWhere('u.password = :password')
+            ->setParameter('login', $login)
+            ->setParameter('password', $password)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     //    /**
     //     * @return Users[] Returns an array of Users objects
     //     */
